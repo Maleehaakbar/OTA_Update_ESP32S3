@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/CMakeFiles/bootloader"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/CMakeFiles/bootloader.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/CMakeFiles/bootloader-complete.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+		},
+		{
+			"file" : "/home/mod/Desktop/esp32/Heart_rate_sensor/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bootloader"
+		],
+		"name" : "bootloader"
+	}
+}

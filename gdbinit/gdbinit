@@ -1,0 +1,2 @@
+source /home/mod/Desktop/esp32/Heart_rate_sensor/gdbinit/symbols
+source /home/mod/Desktop/esp32/Heart_rate_sensor/gdbinit/connect
