@@ -6,8 +6,11 @@
 #include "esp_event.h"
 #include <esp_log.h>
 #include "wifi_app.h"
+#include "tasks_config.h"
 
 const char* TAG_MAIN = "MAIN_APP";
+SemaphoreHandle_t xSemaphore;
+uint32_t sensor_read;
 
 static void i2c_task(void *arg)
 {  
@@ -36,6 +39,19 @@ static void i2c_task(void *arg)
             ESP_LOGE(TAG_MAIN, "Failed to get sensor value");
         }
 
+        if(xSemaphore != NULL)
+        {
+            if(xSemaphoreTake(xSemaphore, pdMS_TO_TICKS(10)) == pdTRUE)
+            {
+                sensor_read = val;
+                xSemaphoreGive(xSemaphore);
+            }
+            else 
+            {
+                ESP_LOGE(TAG_MAIN, "Failed to get the semaphore");
+            }
+        }
+
         vTaskDelay(pdMS_TO_TICKS(1000));
 
     }
@@ -45,7 +61,8 @@ void app_main(void)
 {   
     esp_err_t ret;
    
-     ret = nvs_flash_init();
+
+    ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
         ret = nvs_flash_init();
@@ -53,4 +70,5 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
     wifi_AP_init();
     xTaskCreate(i2c_task, "i2c_task", 1024*4, NULL , 10, NULL);
+    xSemaphore = xSemaphoreCreateMutex();
 }

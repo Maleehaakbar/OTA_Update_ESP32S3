@@ -8,6 +8,7 @@
 #include "lwip/netdb.h"
 #include "esp_event.h"
 #include <esp_log.h>
+#include "https_server.h"
 
 const char* TAG_WIFI = "WIFI_AP";
 esp_netif_t* esp_netif_ap  = NULL;
@@ -28,9 +29,20 @@ void wifi_event_handler(void* event_handler_arg,
 
     }
 
- 
+    else if (event_base == IP_EVENT && event_id == IP_EVENT_AP_STAIPASSIGNED)
+    {
+        ESP_LOGI(TAG_WIFI, "IP assigned to STA");
+        start_server();
+    }
+
 
 }
+
+void server_task()
+{
+
+}
+
 
 void wifi_AP_init()
 {
@@ -41,6 +53,7 @@ void wifi_AP_init()
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
     ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler,NULL,NULL));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler,NULL,NULL));
 
     wifi_config_t wifi_config = {
         .ap = {
@@ -85,4 +98,5 @@ void wifi_AP_init()
 
     ESP_LOGI(TAG_WIFI, "wifi_init_softap finished. SSID:%s password:%s channel:%d",
             WIFI_AP_SSID, WIFI_AP_PASSWORD, WIFI_AP_CHANNEL);
+   
 }
